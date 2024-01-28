@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let timeout;
+        function debounce(){
+            clearTimeout(timeout);
+            timeout=setTimeout(function(){
+                calculate()
+            },1000);
+        }
+       async function calculate(){
+           const a=document.getElementById("FirstNumber").value;
+           const b=document.getElementById("SecondNumber").value;
+           const element=document.getElementById("sum");
+           const ans= await fetch("https://sum-server.100xdevs.com/sum?a="+ a + "&b=" + b);
+           const res= await ans.text();
+        //    console.log(res);
+           element.innerHTML=res;
+        }
+    </script>
+    <input oninput="debounce()" id="FirstNumber" type="text" placeholder="write first number"><br></br>
+    <input oninput="debounce()" id="SecondNumber" type="text" placeholder="write second number"><br></br>
+    <!-- <button onclick="calculate()">calculate sum</button><br></br> -->
+    <div id="sum"></div>
+</body>
+
+</html>
